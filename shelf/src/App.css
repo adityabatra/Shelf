@@ -1,0 +1,28 @@
+.App {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 5vh;
+  flex-direction: column;
+}
+
+.add-workspace-button {
+  width: 300px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+  
+}
+
+.add-workspace-button:hover {
+  background-color: #0056b3;
+}
+
