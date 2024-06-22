@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react';
+import Workspace from './components/Workspace';
 
 function App() {
+  const [workspaces, setWorkspaces] = useState([]);
+  const addWorkspace = () => {
+    setWorkspaces([...workspaces, { id: workspaces.length }]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className="add-workspace-button" onClick={addWorkspace}>Add workspace</button>
+      <Workspace />
+      {workspaces.map((workspace) => (
+        <Workspace key={workspace.id} />
+      ))}
     </div>
   );
 }

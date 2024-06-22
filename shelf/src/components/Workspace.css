@@ -1,0 +1,41 @@
+.workspace-container {
+    width: 300px;
+    padding: 20px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  }
+  
+  .workspace-header {
+    margin-bottom: 20px;
+  }
+  
+  .workspace-header h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .workspace-tabs {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .click-expand {
+    margin: 0;
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .click-expand:hover {
+    text-decoration: underline;
+  }
+  
+ 
+  
