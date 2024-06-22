@@ -3,17 +3,23 @@ import React, {useState} from 'react';
 import Workspace from './components/Workspace';
 
 function App() {
-  const [workspaces, setWorkspaces] = useState([]);
+  const [workspaces, setWorkspaces] = useState([{id:0, isDeletable: false}]);
   const addWorkspace = () => {
-    setWorkspaces([...workspaces, { id: workspaces.length }]);
+    setWorkspaces([...workspaces, { id: workspaces.length, isDeletable: true }]);
   };
+  const deleteWorkspace = (id) => {
+    setWorkspaces(workspaces.filter(workspace => workspace.id !== id));
+  }
+  const saveWorkspace = () => {
+    setWorkspaces([...workspaces,{id:workspaces.length,isDeletable: true}]);
+  }
 
   return (
     <div className="App">
       <button className="add-workspace-button" onClick={addWorkspace}>Add workspace</button>
-      <Workspace />
-      {workspaces.map((workspace) => (
-        <Workspace key={workspace.id} />
+      
+      {workspaces.map((workspace) =>  (
+        <Workspace workspace = {workspace} Delete = {deleteWorkspace} Save = {saveWorkspace}/>
       ))}
     </div>
   );

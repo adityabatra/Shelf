@@ -1,15 +1,18 @@
 .workspace-container {
     width: 300px;
     padding: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: white;
+    position: relative;
   }
   
   .workspace-header {
+    position: relative;
     margin-bottom: 20px;
+    margin-top: 15px;
   }
   
   .workspace-header h2 {
@@ -28,12 +31,28 @@
   
   .click-expand {
     margin: 0;
+    margin-top: 4px;
     font-size: 14px;
     color: #007bff;
     cursor: pointer;
   }
+
+  .delete-button,.save-button{
+    position: absolute;
+    top: 0px; /* Adjust top spacing as needed */
+    right: 20px; /* Adjust right spacing as needed */
+    font-size: 14px;
+    font-weight: 800;
+    color: #000;
+    cursor: pointer;
+    
+
+  }
+  .save-button{
+    font-size: 18px;
+  }
   
-  .click-expand:hover {
+  .click-expand:hover, .delete-button:hover, .save-button:hover {
     text-decoration: underline;
   }
   
