@@ -5,6 +5,11 @@ const Workspace = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const {id,isDeletable} = props.workspace
   const[tabs,setTabs] = useState([])
+  const[inputvalue,setvalue] = useState('')
+
+  const handleValuechange = (e) => {
+    setvalue(e.target.value);
+  }
   console.log(id)
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -32,8 +37,12 @@ const Workspace = (props) => {
   };
 
 
-  const addTab = () => {
-    setTabs([...tabs, {id:tabs.length,name:'Tab'}]);
+  const addTab = (inputvalue) => {
+    if (inputvalue.trim() === ""){
+      alert("Enter a valid value")
+      return
+    }
+    setTabs([...tabs, {id:tabs.length,name:inputvalue}]);
   };
 
   return (
@@ -61,8 +70,8 @@ const Workspace = (props) => {
               </div>
               ))
             }
-            
-            <button onClick={(addTab)}>Add tab</button>
+            <input type ="text" value = {inputvalue} onChange={handleValuechange}></input>
+            <button onClick={() => {addTab(inputvalue)}}>Add tab</button>
           </div>
         ) : (
           <p className="click-expand" onClick={toggleExpand}>Click here to expand</p>
