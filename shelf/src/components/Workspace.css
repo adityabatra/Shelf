@@ -56,5 +56,13 @@
     text-decoration: underline;
   }
   
+  .tab{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    margin-bottom: 5px;
+  }
+
  
   

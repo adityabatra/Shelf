@@ -3,15 +3,18 @@ import React, {useState} from 'react';
 import Workspace from './components/Workspace';
 
 function App() {
-  const [workspaces, setWorkspaces] = useState([{id:0, isDeletable: false}]);
+  const [ids, setId] = useState(1)
+  const [workspaces, setWorkspaces] = useState([{id:0, isDeletable: false, tabheading : "Current session" , alltabs:[]}]);
   const addWorkspace = () => {
-    setWorkspaces([...workspaces, { id: workspaces.length, isDeletable: true }]);
+    setWorkspaces([...workspaces, { id: ids, isDeletable: true, tabheading : "Your workspace " + ids , alltabs:[]}]);
+    setId(ids + 1)
   };
   const deleteWorkspace = (id) => {
     setWorkspaces(workspaces.filter(workspace => workspace.id !== id));
   }
-  const saveWorkspace = () => {
-    setWorkspaces([...workspaces,{id:workspaces.length,isDeletable: true}]);
+  const saveWorkspace = (tabs,heading) => {
+    setWorkspaces([...workspaces,{id:ids,isDeletable: true, tabheading: heading, alltabs: tabs }]);
+    setId(ids + 1)
   }
 
   return (
@@ -19,7 +22,7 @@ function App() {
       <button className="add-workspace-button" onClick={addWorkspace}>Add workspace</button>
       
       {workspaces.map((workspace) =>  (
-        <Workspace workspace = {workspace} Delete = {deleteWorkspace} Save = {saveWorkspace}/>
+        <Workspace key={workspace.id} workspace = {workspace} Delete = {deleteWorkspace} Save = {saveWorkspace}/>
       ))}
     </div>
   );
