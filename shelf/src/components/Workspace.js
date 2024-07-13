@@ -4,32 +4,23 @@ import './Workspace.css';
 const Workspace = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const {id,isDeletable} = props.workspace
-  const[tabs,setTabs] = useState([])
+  const[tabs,setTabs] = useState(props.workspace.alltabs)
+  const[heading,setHeading] = useState(props.workspace.tabheading)
   const[inputvalue,setvalue] = useState('')
 
   const handleValuechange = (e) => {
     setvalue(e.target.value);
   }
-  console.log(id)
+
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-  let heading;
-  if(id === 0){
-    heading = (
-        <h2>Current session</h2>
-    );
-  } else{
-    heading = (
-        <h2>Your workspace {id}</h2>
-    );
-  }
 
   const handleDelete = () => {
     props.Delete(id)
   }
   const save = () => {
-    props.Save()
+    props.Save(tabs,heading)
   }
 
   const handleDeleteTab = (tabId) => {
@@ -57,8 +48,9 @@ const Workspace = (props) => {
           </div>
         )}
       <div className="workspace-header">
-      
-        {heading}
+        
+          <p contentEditable onBlur={(e) => setHeading(e.target.innerText)} style={{cursor:"pointer"}}> {heading}</p>
+        
         {isExpanded ? (
           <div className="workspace-tabs">
             <p>All your tabs are here.</p>
@@ -66,7 +58,7 @@ const Workspace = (props) => {
               tabs.map((tab) => (
                 <div key={tab.id} className="tab">
                 <span>{tab.name}</span>
-                <button onClick={() => handleDeleteTab(tab.id)}>Delete</button>
+                <button class = "tabdelete" onClick={() => handleDeleteTab(tab.id)}>X</button>
               </div>
               ))
             }
