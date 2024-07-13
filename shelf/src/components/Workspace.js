@@ -4,6 +4,7 @@ import './Workspace.css';
 const Workspace = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const {id,isDeletable} = props.workspace
+  const[tabs,setTabs] = useState([])
   console.log(id)
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -26,6 +27,15 @@ const Workspace = (props) => {
     props.Save()
   }
 
+  const handleDeleteTab = (tabId) => {
+    setTabs(tabs.filter(tab => tab.id !== tabId));
+  };
+
+
+  const addTab = () => {
+    setTabs([...tabs, {id:tabs.length,name:'Tab'}]);
+  };
+
   return (
     <div className="workspace-container">
         {isDeletable? (
@@ -43,7 +53,16 @@ const Workspace = (props) => {
         {isExpanded ? (
           <div className="workspace-tabs">
             <p>All your tabs are here.</p>
-            {/* Add more tab content here if needed */}
+            {
+              tabs.map((tab) => (
+                <div key={tab.id} className="tab">
+                <span>{tab.name}</span>
+                <button onClick={() => handleDeleteTab(tab.id)}>Delete</button>
+              </div>
+              ))
+            }
+            
+            <button onClick={(addTab)}>Add tab</button>
           </div>
         ) : (
           <p className="click-expand" onClick={toggleExpand}>Click here to expand</p>
