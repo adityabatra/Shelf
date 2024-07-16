@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import './Workspace.css';
 
 const Workspace = (props) => {
@@ -23,10 +23,12 @@ const Workspace = (props) => {
     props.Save(tabs,heading)
   }
 
+  
+
   const handleDeleteTab = (tabId) => {
     setTabs(tabs.filter(tab => tab.id !== tabId));
+    
   };
-
 
   const addTab = (inputvalue) => {
     if (inputvalue.trim() === ""){
@@ -34,7 +36,17 @@ const Workspace = (props) => {
       return
     }
     setTabs([...tabs, {id:tabs.length,name:inputvalue}]);
+    
+    
   };
+  const handleBlur = (e) => {
+    setHeading(e.target.innerText)
+    
+  }
+// eslint-disable-next-line
+  useEffect(() => {
+    props.update(id,tabs,heading)
+  }, [tabs,heading])
 
   return (
     <div className="workspace-container">
@@ -49,7 +61,7 @@ const Workspace = (props) => {
         )}
       <div className="workspace-header">
         
-          <p contentEditable onBlur={(e) => setHeading(e.target.innerText)} style={{cursor:"pointer"}}> {heading}</p>
+          <p contentEditable onBlur={handleBlur} style={{cursor:"pointer"}}> {heading}</p>
         
         {isExpanded ? (
           <div className="workspace-tabs">
@@ -64,6 +76,7 @@ const Workspace = (props) => {
             }
             <input type ="text" value = {inputvalue} onChange={handleValuechange}></input>
             <button onClick={() => {addTab(inputvalue)}}>Add tab</button>
+            <p className="click-expand" onClick={toggleExpand}>Click here to minimize</p>
           </div>
         ) : (
           <p className="click-expand" onClick={toggleExpand}>Click here to expand</p>
