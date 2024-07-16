@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { useState, useEffect} from 'react';
 import './Workspace.css';
 
@@ -10,6 +11,7 @@ const Workspace = (props) => {
 
   const handleValuechange = (e) => {
     setvalue(e.target.value);
+    
   }
 
   const toggleExpand = () => {
@@ -43,6 +45,16 @@ const Workspace = (props) => {
     setHeading(e.target.innerText)
     
   }
+
+  const openAllTabs = () => {
+    tabs.forEach((tab) => {
+      chrome.tabs.create({ url: tab.name });
+    });
+  };
+  const trunucateUrl = (url,maxLength = 50) => {
+    if (url.length <= maxLength) return url;
+    return url.substring(0,maxLength) + '...';
+  }
 // eslint-disable-next-line
   useEffect(() => {
     props.update(id,tabs,heading)
@@ -61,7 +73,8 @@ const Workspace = (props) => {
         )}
       <div className="workspace-header">
         
-          <p contentEditable onBlur={handleBlur} style={{cursor:"pointer"}}> {heading}</p>
+          <p contentEditable onBlur={handleBlur}  style={{cursor:"pointer"}}> {heading}</p>
+          <p className="open" onClick={openAllTabs}>Open</p>
         
         {isExpanded ? (
           <div className="workspace-tabs">
@@ -69,7 +82,7 @@ const Workspace = (props) => {
             {
               tabs.map((tab) => (
                 <div key={tab.id} className="tab">
-                <span>{tab.name}</span>
+                <span><a href ={tab.name} title={tab.name} target="_blank" > {trunucateUrl(tab.name)}</a></span>
                 <button class = "tabdelete" onClick={() => handleDeleteTab(tab.id)}>X</button>
               </div>
               ))
